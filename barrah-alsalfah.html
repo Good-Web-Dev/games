@@ -236,10 +236,7 @@ background-reapeat:no-repeat;
 width:200px;
 height:200px;
 border-radius: 100px;
-border-top:6px double #ea6a00;
-border-bottom:6px double #ea6a00;
-border-left:6px solid #ea6a00;
-border-right:6px solid #ea6a00;
+border:8px double #ea6a00;
 color:#ea6a00;
 font-weight: bold;
 }
@@ -256,7 +253,7 @@ font-weight: bold;
     <button id="addUser" style="width:20%; border-radius: 4px; height:42px;"><i class="fas fa-user-plus"></i></button></div>
   <br><br>
 <div id="playerContainer" style="margin-top:-55px;"></div>
-  <br>
+  <h2 style="margin:45px auto 7px auto; text-align:right;">السوالف:</h2>
     <div class="contexts">
         <div data-name="drinks"><img src="https://j.top4top.io/p_3305usogj1.png" class="cover" loading="lazy"></img>مشروبات</div>
         <div data-name="animals"><img src="https://i.top4top.io/p_33058k45u0.png" class="cover" loading="lazy"></img>حيوانات</div>
@@ -681,18 +678,43 @@ contexts.forEach((context) => {
             showInOutOfContextPage(selectedPlayer);
         }
 
-        // Function to start the questions phase
-        function startQuestionsPhase() {
-            // Reset remaining players for the questions phase
-            remainingPlayers = [...players];
+       let questionPairs = []; // To store all possible pairs
+let currentPairIndex = 0; // To track the current pair being asked
 
-            // Start the questions logic
-            selectNextQuestionPair();
+// Function to start the questions phase
+function startQuestionsPhase() {
+    // Generate all possible pairs
+    generateQuestionPairs();
+    shuffleArray(questionPairs); // Shuffle the pairs
+    // Re-shuffle the array to ensure randomness
+    for (let i = 0; i < 5; i++) {
+        shuffleArray(questionPairs);
+    }
+    selectNextQuestionPair(); // Start the questioning
+}
+
+// Function to generate all possible question pairs
+function generateQuestionPairs() {
+    for (let asker of players) {
+        for (let answerer of players) {
+            if (asker !== answerer) {
+                questionPairs.push({ asker, answerer });
+            }
         }
+    }
+}
 
-        // Function to select the next pair of players for questions
+// Function to shuffle an array (Fisher-Yates Shuffle)
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]; // Swap
+    }
+}
+
+// Function to select the next pair of players for questions
 function selectNextQuestionPair() {
-    if (remainingPlayers.length < 1) {
+    if (currentPairIndex >= questionPairs.length) {
         document.body.innerHTML = `
             <h1 style="margin-bottom:-7px;">إذا تبغون تسألون أي أحد اسألوا أو خلاص روحوا على التصويت!</h1>
             <br>
@@ -705,22 +727,14 @@ function selectNextQuestionPair() {
         return; // Exit the function
     }
 
-    // Randomly select a player to ask a question
-    const askerIndex = Math.floor(Math.random() * remainingPlayers.length);
-    const asker = remainingPlayers[askerIndex];
-
-    // Create a list of players the asker can ask (excluding themselves)
-    const availablePlayers = players.filter(player => player !== asker);
-
-    // Randomly select a player to answer the question
-    const answererIndex = Math.floor(Math.random() * availablePlayers.length);
-    const answerer = availablePlayers[answererIndex];
+    // Get the current pair
+    const { asker, answerer } = questionPairs[currentPairIndex];
 
     // Show the question prompt
     showQuestionPrompt(asker, answerer);
 
-    // Remove the asker from the remainingPlayers array
-    remainingPlayers.splice(askerIndex, 1);
+    // Move to the next pair
+    currentPairIndex++;
 }
 
 // Function to show the question prompt
