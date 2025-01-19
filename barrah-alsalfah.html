@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <title>برا السالفة</title>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>لعبة برا السالفة</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400..700&family=Lemonada:wght@300..700&family=Marhey:wght@300..700&display=swap');
 </style>
@@ -85,7 +86,7 @@ transition: 0.2s all ease-in-out;
             padding: 10px;
             width: calc(100% - 60px);
         }
-        button {
+        button{
             padding: 10px;
             background: #ea6a00;
             color: white;
@@ -95,12 +96,32 @@ transition: 0.2s all ease-in-out;
 box-shadow:0 5px #d46000;
 font-size: 14px;
         }
-        button:active, .player-label:active{
+        button:not(.confirm-btn-fc, .confirm-btn, .cancel-btn, .guessedAnswerC, .guessedAnswerW):active, .player-label:active{
             filter:brightness(0.9);
 box-shadow:0 4px #d46000;
 transition: 0.2s all ease-in-out;
 -webkit-transition: 0.2s all ease-in-out;
         }
+.guessedAnswerC{
+background-color:green;
+box-shadow:0 5px darkGreen;
+}
+.guessedAnswerW{
+background-color:red;
+box-shadow:0 5px darkRed;
+}
+.guessedAnswerC:active{
+filter:brightness(0.9);
+box-shadow:0 4px darkGreen;
+transition: 0.2s all ease-in-out;
+-webkit-transition: 0.2s all ease-in-out;
+}
+.guessedAnswerW:active{
+filter:brightness(0.9);
+box-shadow:0 4px darkRed;
+transition: 0.2s all ease-in-out;
+-webkit-transition: 0.2s all ease-in-out;
+}
         #jesterToggle {
             margin-left: 10px;
         }
@@ -173,7 +194,7 @@ background-reapeat:no-repeat;
 background:#ea6a00;
 color:white;
 width:fit-content;
-font-size: 22px;
+font-size: 18px;
 padding:12px 15px;
 border-radius: 50px;
 text-align: center;
@@ -239,6 +260,22 @@ border-radius: 100px;
 border:8px double #ea6a00;
 color:#ea6a00;
 font-weight: bold;
+}
+.confirm-btn{
+background-color:#ea6a00;
+}
+.confirm-btn-fc{
+background-color:#DC3545;
+}
+.cancel-btn{
+background-color:#28A745;
+}
+.swal2-popup .swal2-styled:focus {
+    box-shadow: none !important;
+}
+.swal2-icon.swal2-warning{
+color:#ea6a00;
+border-color:#ea6a00;
 }
 </style>
 </head>
@@ -434,6 +471,46 @@ const schoolSubjects = [
     { "context": "الفنون", "hint": "" }
 ];
 
+function exitRoundAlert(){
+Swal.fire({
+    title: 'متأكدين تبغون تخرجون من اللعبة؟',
+    text: "إذا خرجتم، بتخسرون التقدم الحالي.",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'نعم',
+    cancelButtonText: 'لا',
+    customClass: {
+        confirmButton: 'confirm-btn-fc',
+        cancelButton: 'cancel-btn'
+    }
+}).then((result) => {
+    if (result.isConfirmed) {
+        location.reload();
+    }
+});
+}
+
+function exitGameAlert(){
+Swal.fire({
+    title: 'متأكدين تبغون تخرجون من اللعبة؟',
+    text: "إذا خرجتم، بتخسرون التقدم الحالي، وبتتصفر النقاط حقتكم!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'نعم',
+    cancelButtonText: 'لا',
+    customClass: {
+        confirmButton: 'confirm-btn-fc',
+        cancelButton: 'cancel-btn'
+    }
+}).then((result) => {
+    if (result.isConfirmed) {
+        localStorage.removeItem('scores');
+location.reload();
+    }
+});
+}
+
+
         const contexts = document.querySelectorAll('.contexts div');
 const playerContainer = document.getElementById('playerContainer');
 
@@ -529,7 +606,15 @@ contexts.forEach((context) => {
 
         // Check if there are any players
         if (players.length < 3) {
-            alert("يجب أن يكون عدد اللاعبين على الأقل ثلاثة لاعبين!");
+            Swal.fire({
+        title: 'تنبيه!',
+        text: 'يجب أن يكون عدد اللاعبين على الأقل ثلاثة لاعبين!',
+        icon: 'warning',
+        confirmButtonText: 'حسنٌ',
+customClass:{
+confirmButton: 'confirm-btn'
+}
+    });
             return; // Exit if no players are available
         }
 
@@ -539,34 +624,42 @@ contexts.forEach((context) => {
 
         // Assign the correct JSON array based on the selected context
         switch (selectedContext) {
-            case 'animals':
-                contextData = animals;
-                break;
-            case 'clothes':
-                contextData = clothes;
-                break;
-            case 'places':
-                contextData = places;
-                break;
-            case 'drinks':
-                contextData = drinks;
-                break;
-            case 'fruitsAndVegetables':
-                contextData = fruitsAndVegetables;
-                break;
-            case 'foods':
-                contextData = foods;
-                break;
-            case 'scientists':
-                contextData = scientists;
-                break;
-            case 'schoolSubjects':
-                contextData = schoolSubjects;
-                break;
-            default:
-                alert("مافيه سالفة زي كذا!");
-                return;
-        }
+    case 'animals':
+        contextData = animals;
+        break;
+    case 'clothes':
+        contextData = clothes;
+        break;
+    case 'places':
+        contextData = places;
+        break;
+    case 'drinks':
+        contextData = drinks;
+        break;
+    case 'fruitsAndVegetables':
+        contextData = fruitsAndVegetables;
+        break;
+    case 'foods':
+        contextData = foods;
+        break;
+    case 'scientists':
+        contextData = scientists;
+        break;
+    case 'schoolSubjects':
+        contextData = schoolSubjects;
+        break;
+    default:
+        Swal.fire({
+            title: 'خطأ!',
+            text: 'ما فيه سالفة زي كذا!',
+            icon: 'error',
+            confirmButtonText: 'حسنٌ',
+            customClass: {
+                confirmButton: 'confirm-btn'
+            }
+        });
+        return;
+}
 
         // Randomize the context once at the start of the game
         const randomContextIndex = Math.floor(Math.random() * contextData.length);
@@ -604,12 +697,12 @@ contexts.forEach((context) => {
         function showInOutOfContextPage(player) {
             const isOutOfContextPlayer = player === outOfContextPlayer;
             const isJester = player === jesterPlayer;
-
+player = player.startsWith("ال") ? "ل" + player.slice(2) : player;
             document.body.innerHTML = `
                 <h1 style="margin-bottom:-7px;">أعطوا الجوال ل${player}</h1>
                 <br>
                 <button id="nextPlayer">التالي</button>
-<button class="exitRound" onclick="confirm('متأكدين تبغون تخرجون من اللعبة؟') == true ? location.reload() : ''">خروج</button>
+<button class="exitRound" onclick="exitRoundAlert()">خروج</button>
             `;
 
             // Add event listener to the "التالي" button
@@ -625,7 +718,7 @@ contexts.forEach((context) => {
 </div>
                         <br>
                         <button id="nextPlayerBtn">التالي</button>
-<button class="exitRound" onclick="confirm('متأكدين تبغون تخرجون من اللعبة؟') == true ? location.reload() : ''">خروج</button>
+<button class="exitRound" onclick="exitRoundAlert()">خروج</button>
                     `;
                 } else if (isOutOfContextPlayer) {
                     // Show the "out of context" message
@@ -639,7 +732,7 @@ contexts.forEach((context) => {
 </div>
                         <br>
                         <button id="nextPlayerBtn">التالي</button>
-<button class="exitRound" onclick="confirm('متأكدين تبغون تخرجون من اللعبة؟') == true ? location.reload() : ''">خروج</button>
+<button class="exitRound" onclick="exitRoundAlert()">خروج</button>
                     `;
                 } else {
                     // Show the "in context" message
@@ -651,7 +744,7 @@ contexts.forEach((context) => {
 <p>اسأل البقية أسئلة ذكية بحيث أنك تصيد اللي برا السالفة وفي نفس الوقت ما تخليه يدري وش السالفة، وتذكر أنك لما تصيد اللي برا السالفة وتصوت عليه بتأخذ ١٠٠ نقطة.</p></div>
                         <br>
                         <button id="nextPlayerBtn">التالي</button>
-<button class="exitRound" onclick="confirm('متأكدين تبغون تخرجون من اللعبة؟') == true ? location.reload() : ''">خروج</button>
+<button class="exitRound" onclick="exitRoundAlert()">خروج</button>
                     `;
                 }
 
@@ -719,7 +812,7 @@ function selectNextQuestionPair() {
             <h1 style="margin-bottom:-7px;">إذا تبغون تسألون أي أحد اسألوا أو خلاص روحوا على التصويت!</h1>
             <br>
             <button id="voteBtn">تصويت</button>
-            <button class="exitRound" onclick="confirm('متأكدين تبغون تخرجون من اللعبة؟') == true ? location.reload() : ''">خروج</button>
+            <button class="exitRound" onclick="exitRoundAlert()">خروج</button>
         `;
 
         // Add event listener to the vote button
@@ -744,7 +837,7 @@ function showQuestionPrompt(asker, answerer) {
         <h1 style="margin-bottom:-7px;">${asker} اسأل ${answerer}!</h1>
         <br>
         <button id="nextQuestion">التالي</button>
-        <button class="exitRound" onclick="confirm('متأكدين تبغون تخرجون من اللعبة؟') == true ? location.reload() : ''">خروج</button>
+        <button class="exitRound" onclick="exitRoundAlert()">خروج</button>
     `;
 
     // Add event listener to the "التالي" button
@@ -776,7 +869,7 @@ function showQuestionPrompt(asker, answerer) {
                     <h1 style="margin-bottom:-7px;">${currentVoter} من تتوقع أنه برا السالفة؟</h1>
                     <br>
                     <div class="gridBtns">${shuffledPlayers.map(player => `<button class="voteBtn" data-player="${player}">${player}</button>`).join('')}</div>
-<button class="exitRound" onclick="confirm('متأكدين تبغون تخرجون من اللعبة؟') == true ? location.reload() : ''">خروج</button>
+<button class="exitRound" onclick="exitRoundAlert()">خروج</button>
                 `;
 
                 // Add event listeners to the voting buttons
@@ -822,7 +915,7 @@ function showQuestionPrompt(asker, answerer) {
                 </div>
                 <br>
                 <button id="revealBtn" style="display: none;">التالي</button>
-<button class="exitRound" onclick="confirm('متأكدين تبغون تخرجون من اللعبة؟') == true ? location.reload() : ''">خروج</button>
+<button class="exitRound" onclick="exitRoundAlert()">خروج</button>
             `;
 
             const shuffleAnimation = document.getElementById("shuffleAnimation");
@@ -876,7 +969,7 @@ function showGuessPage() {
         <h1 style="margin-bottom:-7px;">${outOfContextPlayer} وش تتوقع كانت السالفة؟</h1>
         <br>
         <div class="gridBtns">${allAnswers.map(answer => `<button class="guessBtn" data-answer="${answer}">${answer}</button>`).join('')}</div>
-<button class="exitRound" onclick="confirm('متأكدين تبغون تخرجون من اللعبة؟') == true ? location.reload() : ''">خروج</button>
+<button class="exitRound" onclick="exitRoundAlert()">خروج</button>
     `;
 
     // Add event listeners to the guess buttons
@@ -886,12 +979,10 @@ function showGuessPage() {
 
             // Check if the guessed answer is correct
             if (guessedAnswer === correctAnswer) {
-this.style.backgroundColor = "green";
-this.style.boxShadow = "0 5px darkGreen";
+this.classList.add("guessedAnswerC");
                 scores[outOfContextPlayer] += 100; // Add 100 points for correct guess
             } else{
-this.style.backgroundColor = "red";
-this.style.boxShadow = "0 5px darkRed";
+this.classList.add("guessedAnswerW");
 }
 
             // Show the score page
@@ -923,12 +1014,8 @@ this.style.boxShadow = "0 5px darkRed";
                 location.reload(); // Reload the page to play again
             });
 
-            document.getElementById("exitBtn").addEventListener("click", function () {
-confirm('متأكدين تبغون تخرجون من اللعبة؟ إذا خرجتوا الحين النقاط بتتصفر وبيروح عليكم التقدم!') == true ? exitAndRestore() : ''
-function exitAndRestore(){
-localStorage.removeItem('scores');
-location.reload();
-}
+            document.getElementById("exitBtn").addEventListener("click", function(){
+exitGameAlert();
             });
         }
 
