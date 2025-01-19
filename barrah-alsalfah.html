@@ -53,6 +53,9 @@ font-size: 16px;
         }
         .contexts div:active {
             filter:brightness(0.9);
+transform:rotate(2deg);
+transition: 0.2s all ease-in-out;
+-webkit-transition: 0.2s all ease-in-out;
         }
         .player-label {
             display: flex;
@@ -75,6 +78,8 @@ font-size: 18px;
         }
         .player-label i:active{
             color: #ddd;
+transition: 0.2s all ease-in-out;
+-webkit-transition: 0.2s all ease-in-out;
         }
         input[type="text"] {
             padding: 10px;
@@ -93,6 +98,8 @@ font-size: 14px;
         button:active, .player-label:active{
             filter:brightness(0.9);
 box-shadow:0 4px #d46000;
+transition: 0.2s all ease-in-out;
+-webkit-transition: 0.2s all ease-in-out;
         }
         #jesterToggle {
             margin-left: 10px;
@@ -629,7 +636,8 @@ contexts.forEach((context) => {
 <div class="playerCard">
 <i class="fas fa-user-secret"></i>
                         <h2>${player} أنت برا السالفة!</h2>
-<p>حاول تعرف السالفة من أسئلة البقية! ولا تنسَ أي تصويت ما يجي عليك بتأخذ عليه ٥٠ نقطة! ولو عرفت السالفة وتوقعتعا صح بتأخذ ١٠٠ نقطة</p>
+<p>حاول تعرف السالفة من أسئلة البقية! ولا تنسَ أي تصويت ما يجي عليك بتأخذ عليه ٥٠ نقطة! ولو
+ عرفت السالفة وتوقعتعا صح بتأخذ ١٠٠ نقطة!</p>
                         <!-- <p>تلميح السالفة عن: <b>${selectedContextItem.hint}</b>.</p> -->
 </div>
                         <br>
@@ -902,8 +910,11 @@ this.style.boxShadow = "0 5px darkRed";
             });
 
             document.getElementById("exitBtn").addEventListener("click", function () {
-                localStorage.removeItem('scores'); // Clear scores from localStorage
-                location.reload(); // Reload the page to exit
+confirm('متأكدين تبغون تخرجون من اللعبة؟ إذا خرجتوا الحين النقاط بتتصفر وبيروح عليكم التقدم!') == true ? exitAndRestore() : ''
+function exitAndRestore(){
+localStorage.removeItem('scores');
+location.reload();
+}
             });
         }
 
