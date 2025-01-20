@@ -697,9 +697,8 @@ confirmButton: 'confirm-btn'
         function showInOutOfContextPage(player) {
             const isOutOfContextPlayer = player === outOfContextPlayer;
             const isJester = player === jesterPlayer;
-player = player.startsWith("ال") ? "ل" + player.slice(2) : player;
             document.body.innerHTML = `
-                <h1 style="margin-bottom:-7px;">أعطوا الجوال ل${player}</h1>
+                <h1 style="margin-bottom:-7px;">أعطوا الجوال ل${player.startsWith("ال") ? "ل" + player.slice(2) : player}!</h1>
                 <br>
                 <button id="nextPlayer">التالي</button>
 <button class="exitRound" onclick="exitRoundAlert()">خروج</button>
