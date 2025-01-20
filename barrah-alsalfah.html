@@ -258,8 +258,43 @@ width:200px;
 height:200px;
 border-radius: 100px;
 border:8px double #ea6a00;
+border-right-style:solid;
+border-left-style:solid;
+border-top-style:double;
+border-bottom-style:double;
 color:#ea6a00;
 font-weight: bold;
+}
+@keyframes borderAn{
+0%{
+border-right-style:solid;
+border-left-style:solid;
+border-top-style:double;
+border-bottom-style:double;
+}
+50%{
+border-top-style:solid;
+border-bottom-style:solid;
+border-right-style:double;
+border-left-style:double;
+}
+100%{
+border-right-style:solid;
+border-left-style:solid;
+border-top-style:double;
+border-bottom-style:double;
+}
+}
+@keyframes textAn{
+0%{
+transform: scale(1);
+}
+50%{
+transform: scale(0.85);
+}
+100%{
+transform: scale(1);
+}
 }
 .confirm-btn{
 background-color:#ea6a00;
@@ -374,8 +409,8 @@ border-color:#ea6a00;
     { "context": "قهوة", "hint": "" },
     { "context": "عصير", "hint": "" },
     { "context": "حليب", "hint": "" },
-    { "context": "ماء جوز الهند", "hint": "" },
-    { "context": "مشروبات غازية", "hint": "" },
+    { "context": "شاي كرك", "hint": "" },
+    { "context": "مشروب غازي", "hint": "" },
     { "context": "عصير ليمون", "hint": "" },
     { "context": "شوكولاتة ساخنة", "hint": " " },
     { "context": "عصير رمان", "hint": "" },
@@ -385,9 +420,9 @@ border-color:#ea6a00;
     { "context": "شاي بالنعناع", "hint": "" },
     { "context": "إسبريسو", "hint": "" },
     { "context": "لاتيه", "hint": "" },
-    { "context": "مشروب الطاقة", "hint": "" },
+    { "context": "مشروب طاقة", "hint": "" },
     { "context": "عصير جزر وبرتقال", "hint": "" },
-    { "context": "شاي بالزنجبيل", "hint": "" },
+    { "context": "عصير فواكه مشكلة", "hint": "" },
     { "context": "ميلك شيك", "hint": "" }
 ];
 
@@ -396,18 +431,18 @@ const foods = [
     { "context": "برجر", "hint": "" },
     { "context": "معكرونة", "hint": "" },
     { "context": "سوشي", "hint": "" },
-    { "context": "تشيز كيك", "hint": "" },
+    { "context": "فول", "hint": "" },
     { "context": "كباب", "hint": "" },
     { "context": "شاورما", "hint": "" },
     { "context": "فطيرة", "hint": "" },
     { "context": "سلطة", "hint": "" },
     { "context": "بطاطس مقلية", "hint": "" },
-    { "context": "شريحة لحم", "hint": "" },
+    { "context": "عدس", "hint": "" },
     { "context": "سمك مشوي", "hint": "" },
     { "context": "كبسة", "hint": "" },
-    { "context": "لازانيا", "hint": "" },
+    { "context": "مرقوق", "hint": "" },
     { "context": "جريش", "hint": "" },
-    { "context": "فاهيتا", "hint": "" },
+    { "context": "كودو", "hint": "" },
     { "context": "تاكو", "hint": "" },
     { "context": "شطيرة بالتونة", "hint": "" },
     { "context": "كعك", "hint": "" },
@@ -698,8 +733,8 @@ confirmButton: 'confirm-btn'
             const isOutOfContextPlayer = player === outOfContextPlayer;
             const isJester = player === jesterPlayer;
             document.body.innerHTML = `
-                <h1 style="margin-bottom:-7px;">أعطوا الجوال ل${player.startsWith("ال") ? "ل" + player.slice(2) : player}!</h1>
-                <br>
+                <h1 style="margin-bottom:4px;">أعطوا الجوال ل${player.startsWith("ال") ? "ل" + player.slice(2) : player}!</h1>
+<p style="text-align:center;">اضغط التالي عشان تعرف إذا أنت برا السالفة ولا لا..</p>
                 <button id="nextPlayer">التالي</button>
 <button class="exitRound" onclick="exitRoundAlert()">خروج</button>
             `;
@@ -865,7 +900,7 @@ function showQuestionPrompt(asker, answerer) {
 
                 // Update the UI for the current voter
                 document.body.innerHTML = `
-                    <h1 style="margin-bottom:-7px;">${currentVoter} من تتوقع أنه برا السالفة؟</h1>
+                    <h1 style="margin-bottom:-4px;">${currentVoter} من تتوقع أنه برا السالفة؟</h1>
                     <br>
                     <div class="gridBtns">${shuffledPlayers.map(player => `<button class="voteBtn" data-player="${player}">${player}</button>`).join('')}</div>
 <button class="exitRound" onclick="exitRoundAlert()">خروج</button>
@@ -936,6 +971,7 @@ function showQuestionPrompt(asker, answerer) {
             stopShuffleTimeout = setTimeout(() => {
                 clearInterval(shuffleInterval); // Stop the shuffle
                 randomNameElement.textContent = outOfContextPlayer; // Show the out of context player
+randomNameElement.style.animation = "textAn 3s infinite linear";
                 revealBtn.style.display = "block"; // Show the reveal button
             }, 3000);
 
