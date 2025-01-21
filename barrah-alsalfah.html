@@ -316,6 +316,7 @@ border-color:#ea6a00;
 </head>
 <body>
     <h1 style="font-size:28px;">لعبة برا السالفة</h1>
+<br>
     <div style="font-weight:bold;">
         <label for="jesterToggle"><i class="fas fa-user-astronaut"></i>&nbsp; تفعيل اللعاب:</label>
         <input type="checkbox" id="jesterToggle">
@@ -327,152 +328,21 @@ border-color:#ea6a00;
 <div id="playerContainer" style="margin-top:-55px;"></div>
   <h2 style="margin:45px auto 7px auto; text-align:right;">السوالف:</h2>
     <div class="contexts">
+<div data-name="randoms"><img src="https://j.top4top.io/p_33084bf5b2.png" class="cover" loading="lazy"></img>عشوائيات</div>
+<div data-name="inventions"><img src="https://k.top4top.io/p_33082wbvh3.png" class="cover" loading="lazy"></img>اختراعات</div>
+<div data-name="schoolSubjects"><img src="https://c.top4top.io/p_33053fjju6.png" class="cover" loading="lazy"></img>مواد دراسية</div>
         <div data-name="drinks"><img src="https://j.top4top.io/p_3305usogj1.png" class="cover" loading="lazy"></img>مشروبات</div>
-        <div data-name="animals"><img src="https://i.top4top.io/p_33058k45u0.png" class="cover" loading="lazy"></img>حيوانات</div>
-        <div data-name="clothes"><img src="https://k.top4top.io/p_3305ga0j72.png" class="cover" loading="lazy"></img>ملابس</div>
-        <div data-name="places"><img src="https://l.top4top.io/p_3305cvpwi3.png" class="cover" loading="lazy"></img>أماكن</div>
 <div data-name="foods"><img src="https://b.top4top.io/p_3305tmzqf5.png" class="cover" loading="lazy"></img>أكلات</div>
 <div data-name="fruitsAndVegetables"><img src="https://a.top4top.io/p_33054os254.png" class="cover" loading="lazy"></img>فواكه وخضار</div>
-<div data-name="schoolSubjects"><img src="https://c.top4top.io/p_33053fjju6.png" class="cover" loading="lazy"></img>مواد دراسية</div>
-<div data-name="scientists"><img src="https://d.top4top.io/p_33059sz8j7.png" class="cover" loading="lazy"></img>علماء</div>
+        <div data-name="animals"><img src="https://i.top4top.io/p_33058k45u0.png" class="cover" loading="lazy"></img>حيوانات</div>
+<div data-name="insects"><img src="https://l.top4top.io/p_3308jzkxb4.png" class="cover" loading="lazy"></img>حشرات</div>
+        <div data-name="clothes"><img src="https://k.top4top.io/p_3305ga0j72.png" class="cover" loading="lazy"></img>ملابس</div>
+        <div data-name="places"><img src="https://l.top4top.io/p_3305cvpwi3.png" class="cover" loading="lazy"></img>أماكن</div>
+<!-- <div data-name="scientists"><img src="https://d.top4top.io/p_33059sz8j7.png" class="cover" loading="lazy"></img>علماء</div> -->
 </div>
     <script>
-        const animals = [
-            { "context": "ضفدع", "hint": "الحيوان صغير الحجم" },
-            { "context": "قرد", "hint": "الحيوان من الثدييات" },
-            { "context": "أسد", "hint": "الحيوان من الثدييات" },
-            { "context": "كنغر", "hint": "الحيوان من الثدييات" },
-            { "context": "قطة", "hint": "الحيوان من الثدييات" },
-            { "context": "كلب", "hint": "الحيوان من الثدييات" },
-            { "context": "بومة", "hint": "الحيوان من الطيور" },
-            { "context": "صقر", "hint": "الحيوان من الطيور" },
-            { "context": "جمل", "hint": "الحيوان من الثدييات" },
-            { "context": "حمار", "hint": "الحيوان من الثدييات" },
-            { "context": "غزال", "hint": "الحيوان من الثدييات" },
-            { "context": "ضب", "hint": "الحيوان صغير الحجم" },
-            { "context": "حرباء", "hint": "الحيوان صغير الحجم" },
-            { "context": "سلطعون", "hint": "الحيوان صغير الحجم" },
-            { "context": "بطة", "hint": "الحيوان من الطيور" },
-            { "context": "حمامة", "hint": "الحيوان من الطيور" },
-            { "context": "دجاجة", "hint": "الحيوان من الطيور" },
-            { "context": "عصفور", "hint": "الحيوان من الطيور" },
-            { "context": "فأر", "hint": "الحيوان صغير الحجم" },
-            { "context": "أرنب", "hint": "الحيوان من الثدييات" }
-        ];
-        const clothes = [
-            { "context": "قميص", "hint": "اللبس يلبسه الرجال" },
-            { "context": "فستان", "hint": "اللبس تلبسه النساء" },
-            { "context": "سروال", "hint": "اللبس للجنسين" },
-            { "context": "معطف", "hint": "اللبس للجنسين" },
-            { "context": "حذاء", "hint": "اللبس للجنسين" },
-            { "context": "قبعة", "hint": "اللبس للجنسين" },
-            { "context": "ثوب", "hint": "اللبس يلبسه الرجال" },
-            { "context": "بلوزة", "hint": "اللبس تلبسه النساء" },
-            { "context": "بشت (مشلح)", "hint": "اللبس يلبسه الرجال" },
-            { "context": "شماغ", "hint": "اللبس يلبسه الرجال" },
-            { "context": "عقال", "hint": "اللبس يلبسه الرجال" },
-            { "context": "عباية", "hint": "اللبس تلبسه النساء" },
-            { "context": "جورب", "hint": "اللبس للجنسين" },
-            { "context": "فروة", "hint": "اللبس للجنسين" },
-            { "context": "طوق شعر", "hint": "اللبس تلبسه النساء" },
-            { "context": "سوارة", "hint": "اللبس تلبسه النساء" },
-            { "context": "تنورة", "hint": "اللبس تلبسه النساء" },
-            { "context": "شبشب", "hint": "اللبس يلبسه الرجال" },
-            { "context": "طاقية", "hint": "اللبس يلبسه الرجال" },
-            { "context": "مريول", "hint": "اللبس تلبسه النساء" }
-        ];
-        const places = [
-            { "context": "مكتبة", "hint": "مكان موجود في كل بلد" },
-            { "context": "مدرسة", "hint": "مكان موجود في كل بلد" },
-            { "context": "مطعم", "hint": "مكان موجود في كل بلد" },
-            { "context": "حديقة", "hint": "مكان موجود في كل بلد" },
-            { "context": "مستشفى", "hint": "مكان موجود في كل بلد" },
-            { "context": "فندق", "hint": "مكان موجود في كل بلد" },
-            { "context": "متحف", "hint": "مكان موجود في كل بلد" },
-            { "context": "محطة قطار", "hint": "مكان موجود في كل بلد" },
-            { "context": "صيدلية", "hint": "مكان موجود في كل بلد" },
-            { "context": "شاطئ", "hint": "مكان للاستمتاع بالشمس والماء" },
-            { "context": "برج إيفل", "hint": "معلم سياحي" },
-            { "context": "برج خليفة", "hint": "معلم سياحي" },
-            { "context": "برج بيزا المائل", "hint": "معلم سياحي" },
-            { "context": "الأهرامات", "hint": "معلم سياحي" },
-            { "context": "برج المملكة", "hint": "معلم سياحي" },
-            { "context": "برج الفيصلية", "hint": "معلم سياحي" },
-            { "context": "سور الصين العظيم", "hint": "معلم سياحي" },
-            { "context": "حديقة حيوان", "hint": "مكان موجود في كل بلد" },
-            { "context": "وزارة", "hint": "مكان موجود في كل بلد" },
-            { "context": "بنك", "hint": "مكان موجود في كل بلد" }
-        ];
-        const drinks = [
-    { "context": "ماء", "hint": "" },
-    { "context": "شاي", "hint": "" },
-    { "context": "قهوة", "hint": "" },
-    { "context": "عصير", "hint": "" },
-    { "context": "حليب", "hint": "" },
-    { "context": "شاي كرك", "hint": "" },
-    { "context": "مشروب غازي", "hint": "" },
-    { "context": "عصير ليمون", "hint": "" },
-    { "context": "شوكولاتة ساخنة", "hint": " " },
-    { "context": "عصير رمان", "hint": "" },
-    { "context": "موكا", "hint": "" },
-    { "context": "كابتشينو", "hint": "" },
-    { "context": "شاي أخضر", "hint": "" },
-    { "context": "شاي بالنعناع", "hint": "" },
-    { "context": "إسبريسو", "hint": "" },
-    { "context": "لاتيه", "hint": "" },
-    { "context": "مشروب طاقة", "hint": "" },
-    { "context": "عصير جزر وبرتقال", "hint": "" },
-    { "context": "عصير فواكه مشكلة", "hint": "" },
-    { "context": "ميلك شيك", "hint": "" }
-];
 
-const foods = [
-    { "context": "بيتزا", "hint": "" },
-    { "context": "برجر", "hint": "" },
-    { "context": "معكرونة", "hint": "" },
-    { "context": "سوشي", "hint": "" },
-    { "context": "فول", "hint": "" },
-    { "context": "كباب", "hint": "" },
-    { "context": "شاورما", "hint": "" },
-    { "context": "فطيرة", "hint": "" },
-    { "context": "سلطة", "hint": "" },
-    { "context": "بطاطس مقلية", "hint": "" },
-    { "context": "عدس", "hint": "" },
-    { "context": "سمك مشوي", "hint": "" },
-    { "context": "كبسة", "hint": "" },
-    { "context": "مرقوق", "hint": "" },
-    { "context": "جريش", "hint": "" },
-    { "context": "كودو", "hint": "" },
-    { "context": "تاكو", "hint": "" },
-    { "context": "شطيرة بالتونة", "hint": "" },
-    { "context": "كعك", "hint": "" },
-    { "context": "دونات", "hint": "" }
-];
-
-const fruitsAndVegetables = [
-    { "context": "تفاح", "hint": "" },
-    { "context": "موز", "hint": "" },
-    { "context": "برتقال", "hint": "" },
-    { "context": "فراولة", "hint": "" },
-    { "context": "عنب", "hint": "" },
-    { "context": "مانجو", "hint": "" },
-    { "context": "أناناس", "hint": "" },
-    { "context": "كيوي", "hint": "" },
-    { "context": "خوخ", "hint": "" },
-    { "context": "بطيخ", "hint": "" },
-    { "context": "طماطم", "hint": "" },
-    { "context": "خيار", "hint": "" },
-    { "context": "جزر", "hint": "" },
-    { "context": "بروكلي", "hint": "" },
-    { "context": "سبانخ", "hint": "" },
-    { "context": "بصل", "hint": "" },
-    { "context": "ثوم", "hint": "" },
-    { "context": "فلفل", "hint": "" },
-    { "context": "بطاطا", "hint": "" },
-    { "context": "ذرة", "hint": "" }
-];
-
-const scientists = [
+/* const scientists = [
     { "context": "ابن سينا", "hint": "" },
     { "context": "الخوارزمي", "hint": "" },
     { "context": "ابن الهيثم", "hint": "" },
@@ -483,28 +353,216 @@ const scientists = [
     { "context": "أينشتاين", "hint": "" },
     { "context": "الزهراوي", "hint": "" },
     { "context": "نيوتن", "hint": "" }
+]; */
+
+const animals = [
+    { "context": "ضفدع", "hint": "الحيوان صغير الحجم", "category": "حيوانات" },
+    { "context": "قرد", "hint": "الحيوان من الثدييات", "category": "حيوانات" },
+    { "context": "أسد", "hint": "الحيوان من الثدييات", "category": "حيوانات" },
+    { "context": "كنغر", "hint": "الحيوان من الثدييات", "category": "حيوانات" },
+    { "context": "قطة", "hint": "الحيوان من الثدييات", "category": "حيوانات" },
+    { "context": "كلب", "hint": "الحيوان من الثدييات", "category": "حيوانات" },
+    { "context": "بومة", "hint": "الحيوان من الطيور", "category": "حيوانات" },
+    { "context": "صقر", "hint": "الحيوان من الطيور", "category": "حيوانات" },
+    { "context": "جمل", "hint": "الحيوان من الثدييات", "category": "حيوانات" },
+    { "context": "حمار", "hint": "الحيوان من الثدييات", "category": "حيوانات" },
+    { "context": "غزال", "hint": "الحيوان من الثدييات", "category": "حيوانات" },
+    { "context": "ضب", "hint": "الحيوان صغير الحجم", "category": "حيوانات" },
+    { "context": "حرباء", "hint": "الحيوان صغير الحجم", "category": "حيوانات" },
+    { "context": "سلطعون", "hint": "الحيوان صغير الحجم", "category": "حيوانات" },
+    { "context": "بطة", "hint": "الحيوان من الطيور", "category": "حيوانات" },
+    { "context": "حمامة", "hint": "الحيوان من الطيور", "category": "حيوانات" },
+    { "context": "دجاجة", "hint": "الحيوان من الطيور", "category": "حيوانات" },
+    { "context": "عصفور", "hint": "الحيوان من الطيور", "category": "حيوانات" },
+    { "context": "فأر", "hint": "الحيوان صغير الحجم", "category": "حيوانات" },
+    { "context": "أرنب", "hint": "الحيوان من الثدييات", "category": "حيوانات" }
+];
+
+const clothes = [
+    { "context": "قميص", "hint": "اللبس يلبسه الرجال", "category": "ملابس" },
+    { "context": "فستان", "hint": "اللبس تلبسه النساء", "category": "ملابس" },
+    { "context": "سروال", "hint": "اللبس للجنسين", "category": "ملابس" },
+    { "context": "معطف", "hint": "اللبس للجنسين", "category": "ملابس" },
+    { "context": "حذاء", "hint": "اللبس للجنسين", "category": "ملابس" },
+    { "context": "قبعة", "hint": "اللبس للجنسين", "category": "ملابس" },
+    { "context": "ثوب", "hint": "اللبس يلبسه الرجال", "category": "ملابس" },
+    { "context": "بلوزة", "hint": "اللبس تلبسه النساء", "category": "ملابس" },
+    { "context": "بشت (مشلح)", "hint": "اللبس يلبسه الرجال", "category": "ملابس" },
+    { "context": "شماغ", "hint": "اللبس يلبسه الرجال", "category": "ملابس" },
+    { "context": "عقال", "hint": "اللبس يلبسه الرجال", "category": "ملابس" },
+    { "context": "عباية", "hint": "اللبس تلبسه النساء", "category": "ملابس" },
+    { "context": "جورب", "hint": "اللبس للجنسين", "category": "ملابس" },
+    { "context": "فروة", "hint": "اللبس للجنسين", "category": "ملابس" },
+    { "context": "طوق شعر", "hint": "اللبس تلبسه النساء", "category": "ملابس" },
+    { "context": "سوارة", "hint": "اللبس تلبسه النساء", "category": "ملابس" },
+    { "context": "تنورة", "hint": "اللبس تلبسه النساء", "category": "ملابس" },
+    { "context": "شبشب", "hint": "اللبس يلبسه الرجال", "category": "ملابس" },
+    { "context": "طاقية", "hint": "اللبس يلبسه الرجال", "category": "ملابس" },
+    { "context": "مريول", "hint": "اللبس تلبسه النساء", "category": "ملابس" }
+];
+
+const places = [
+    { "context": "مكتبة", "hint": "مكان موجود في كل بلد", "category": "أماكن" },
+    { "context": "مدرسة", "hint": "مكان موجود في كل بلد", "category": "أماكن" },
+    { "context": "مطعم", "hint": "مكان موجود في كل بلد", "category": "أماكن" },
+    { "context": "حديقة", "hint": "مكان موجود في كل بلد", "category": "أماكن" },
+    { "context": "مستشفى", "hint": "مكان موجود في كل بلد", "category": "أماكن" },
+    { "context": "فندق", "hint": "مكان موجود في كل بلد", "category": "أماكن" },
+    { "context": "متحف", "hint": "مكان موجود في كل بلد", "category": "أماكن" },
+    { "context": "محطة قطار", "hint": "مكان موجود في كل بلد", "category": "أماكن" },
+    { "context": "صيدلية", "hint": "مكان موجود في كل بلد", "category": "أماكن" },
+    { "context": "شاطئ", "hint": "مكان للاستمتاع بالشمس والماء", "category": "أماكن" },
+    { "context": "برج إيفل", "hint": "معلم سياحي", "category": "أماكن" },
+    { "context": "برج خليفة", "hint": "معلم سياحي", "category": "أماكن" },
+    { "context": "برج بيزا المائل", "hint": "معلم سياحي", "category": "أماكن" },
+    { "context": "الأهرامات", "hint": "معلم سياحي", "category": "أماكن" },
+    { "context": "برج المملكة", "hint": "معلم سياحي", "category": "أماكن" },
+    { "context": "برج الفيصلية", "hint": "معلم سياحي", "category": "أماكن" },
+    { "context": "سور الصين العظيم", "hint": "معلم سياحي", "category": "أماكن" },
+    { "context": "حديقة حيوان", "hint": "مكان موجود في كل بلد", "category": "أماكن" },
+    { "context": "وزارة", "hint": "مكان موجود في كل بلد", "category": "أماكن" },
+    { "context": "بنك", "hint": "مكان موجود في كل بلد", "category": "أماكن" }
+];
+
+const drinks = [
+    { "context": "ماء", "hint": "", "category": "مشروبات" },
+    { "context": "شاي", "hint": "", "category": "مشروبات" },
+    { "context": "قهوة", "hint": "", "category": "مشروبات" },
+    { "context": "عصير", "hint": "", "category": "مشروبات" },
+    { "context": "حليب", "hint": "", "category": "مشروبات" },
+    { "context": "شاي كرك", "hint": "", "category": "مشروبات" },
+    { "context": "مشروب غازي", "hint": "", "category": "مشروبات" },
+    { "context": "عصير ليمون", "hint": "", "category": "مشروبات" },
+    { "context": "شوكولاتة ساخنة", "hint": " ", "category": "مشروبات" },
+    { "context": "عصير رمان", "hint": "", "category": "مشروبات" },
+    { "context": "موكا", "hint": "", "category": "مشروبات" },
+    { "context": "كابتشينو", "hint": "", "category": "مشروبات" },
+    { "context": "شاي أخضر", "hint": "", "category": "مشروبات" },
+    { "context": "شاي بالنعناع", "hint": "", "category": "مشروبات" },
+    { "context": "إسبريسو", "hint": "", "category": "مشروبات" },
+    { "context": "لاتيه", "hint": "", "category": "مشروبات" },
+    { "context": "مشروب طاقة", "hint": "", "category": "مشروبات" },
+    { "context": "عصير جزر وبرتقال", "hint": "", "category": "مشروبات" },
+    { "context": "عصير فواكه مشكلة", "hint": "", "category": "مشروبات" },
+    { "context": "ميلك شيك", "hint": "", "category": "مشروبات" }
+];
+
+const foods = [
+    { "context": "بيتزا", "hint": "", "category": "أكلات" },
+    { "context": "برجر", "hint": "", "category": "أكلات" },
+    { "context": "معكرونة", "hint": "", "category": "أكلات" },
+    { "context": "سوشي", "hint": "", "category": "أكلات" },
+    { "context": "فول", "hint": "", "category": "أكلات" },
+    { "context": "كباب", "hint": "", "category": "أكلات" },
+    { "context": "شاورما", "hint": "", "category": "أكلات" },
+    { "context": "فطيرة", "hint": "", "category": "أكلات" },
+    { "context": "سلطة", "hint": "", "category": "أكلات" },
+    { "context": "بطاطس مقلية", "hint": "", "category": "أكلات" },
+    { "context": "عدس", "hint": "", "category": "أكلات" },
+    { "context": "سمك مشوي", "hint": "", "category": "أكلات" },
+    { "context": "كبسة", "hint": "", "category": "أكلات" },
+    { "context": "مرقوق", "hint": "", "category": "أكلات" },
+    { "context": "جريش", "hint": "", "category": "أكلات" },
+    { "context": "كودو", "hint": "", "category": "أكلات" },
+    { "context": "تاكو", "hint": "", "category": "أكلات" },
+    { "context": "شطيرة بالتونة", "hint": "", "category": "أكلات" },
+    { "context": "كعك", "hint": "", "category": "أكلات" },
+    { "context": "دونات", "hint": "", "category": "أكلات" }
+];
+
+const fruitsAndVegetables = [
+    { "context": "تفاح", "hint": "", "category": "فواكه وخضار" },
+    { "context": "موز", "hint": "", "category": "فواكه وخضار" },
+    { "context": "برتقال", "hint": "", "category": "فواكه وخضار" },
+    { "context": "فراولة", "hint": "", "category": "فواكه وخضار" },
+    { "context": "عنب", "hint": "", "category": "فواكه وخضار" },
+    { "context": "مانجو", "hint": "", "category": "فواكه وخضار" },
+    { "context": "أناناس", "hint": "", "category": "فواكه وخضار" },
+    { "context": "كيوي", "hint": "", "category": "فواكه وخضار" },
+    { "context": "خوخ", "hint": "", "category": "فواكه وخضار" },
+    { "context": "بطيخ", "hint": "", "category": "فواكه وخضار" },
+    { "context": "طماطم", "hint": "", "category": "فواكه وخضار" },
+    { "context": "خيار", "hint": "", "category": "فواكه وخضار" },
+    { "context": "جزر", "hint": "", "category": "فواكه وخضار" },
+    { "context": "بروكلي", "hint": "", "category": "فواكه وخضار" },
+    { "context": "سبانخ", "hint": "", "category": "فواكه وخضار" },
+    { "context": "بصل", "hint": "", "category": "فواكه وخضار" },
+    { "context": "ثوم", "hint": "", "category": "فواكه وخضار" },
+    { "context": "فلفل", "hint": "", "category": "فواكه وخضار" },
+    { "context": "بطاطا", "hint": "", "category": "فواكه وخضار" },
+    { "context": "ذرة", "hint": "", "category": "فواكه وخضار" }
 ];
 
 const schoolSubjects = [
-    { "context": "الرياضيات", "hint": "" },
-    { "context": "اللغة العربية", "hint": "" },
-    { "context": "العلوم", "hint": "" },
-    { "context": "التاريخ", "hint": "" },
-    { "context": "الجغرافيا", "hint": "" },
-    { "context": "الفيزياء", "hint": "" },
-    { "context": "الكيمياء", "hint": "" },
-    { "context": "اللغة الإنجليزية", "hint": "" },
-    { "context": "التربية الإسلامية", "hint": "" },
-    { "context": "الفقه", "hint": "" },
-    { "context": "التوحيد", "hint": "" },
-    { "context": "الحديث", "hint": "" },
-    { "context": "التفسير", "hint": "" },
-    { "context": "التربية البدنية", "hint": "" },
-    { "context": "المواطنة الرقمية", "hint": "" },
-    { "context": "الحاسب الآلي", "hint": "" },
-    { "context": "الأحياء", "hint": "" },
-    { "context": "الفنون", "hint": "" }
+    { "context": "الرياضيات", "hint": "", "category": "مواد دراسية" },
+    { "context": "اللغة العربية", "hint": "", "category": "مواد دراسية" },
+    { "context": "العلوم", "hint": "", "category": "مواد دراسية" },
+    { "context": "التاريخ", "hint": "", "category": "مواد دراسية" },
+    { "context": "الجغرافيا", "hint": "", "category": "مواد دراسية" },
+    { "context": "الفيزياء", "hint": "", "category": "مواد دراسية" },
+    { "context": "الكيمياء", "hint": "", "category": "مواد دراسية" },
+    { "context": "اللغة الإنجليزية", "hint": "", "category": "مواد دراسية" },
+    { "context": "التربية الإسلامية", "hint": "", "category": "مواد دراسية" },
+    { "context": "الفقه", "hint": "", "category": "مواد دراسية" },
+    { "context": "التوحيد", "hint": "", "category": "مواد دراسية" },
+    { "context": "الحديث", "hint": "", "category": "مواد دراسية" },
+    { "context": "التفسير", "hint": "", "category": "مواد دراسية" },
+    { "context": "التربية البدنية", "hint": "", "category": "مواد دراسية" },
+    { "context": "المواطنة الرقمية", "hint": "", "category": "مواد دراسية" },
+    { "context": "التقنية الرقمية", "hint": "", "category": "مواد دراسية" },
+    { "context": "الأحياء", "hint": "", "category": "مواد دراسية" },
+    { "context": "علوم الأرض والفضاء", "hint": "", "category": "مواد دراسية" },
+    { "context": "البحث ومصادر المعلومات", "hint": "", "category": "مواد دراسية" },
+    { "context": "الفنون", "hint": "", "category": "مواد دراسية" }
 ];
+
+const inventions = [
+    { "context": "مكيف", "hint": "", "category": "اختراعات" },
+    { "context": "سيارة", "hint": "", "category": "اختراعات" },
+    { "context": "جوال", "hint": "", "category": "اختراعات" },
+    { "context": "حاسوب", "hint": "", "category": "اختراعات" },
+    { "context": "مكنسة كهربائية", "hint": "", "category": "اختراعات" },
+    { "context": "قطار", "hint": "", "category": "اختراعات" },
+    { "context": "مصباح", "hint": "", "category": "اختراعات" },
+    { "context": "روبوت", "hint": "", "category": "اختراعات" },
+    { "context": "فرن", "hint": "", "category": "اختراعات" },
+    { "context": "مروحة", "hint": "", "category": "اختراعات" },
+    { "context": "طائرة", "hint": "", "category": "اختراعات" },
+    { "context": "تلفاز", "hint": "", "category": "اختراعات" },
+    { "context": "راديو", "hint": "", "category": "اختراعات" },
+    { "context": "مايكروويف", "hint": "", "category": "اختراعات" },
+    { "context": "شطاف", "hint": "", "category": "اختراعات" },
+    { "context": "جرس", "hint": "", "category": "اختراعات" },
+    { "context": "عربة تسوق", "hint": "", "category": "اختراعات" },
+    { "context": "بروجكتر", "hint": "", "category": "اختراعات" },
+    { "context": "بلايستيشن", "hint": "", "category": "اختراعات" },
+    { "context": "طابعة", "hint": "", "category": "اختراعات" }
+];
+
+const insects = [
+    { "context": "نحل", "hint": "", "category": "حشرات" },
+    { "context": "بعوض", "hint": "", "category": "حشرات" },
+    { "context": "ذباب", "hint": "", "category": "حشرات" },
+    { "context": "فراشة", "hint": "", "category": "حشرات" },
+    { "context": "عنكبوت", "hint": "", "category": "حشرات" },
+    { "context": "صرصور", "hint": "", "category": "حشرات" },
+    { "context": "نمل", "hint": "", "category": "حشرات" },
+    { "context": "جراد", "hint": "", "category": "حشرات" },
+    { "context": "قمل", "hint": "", "category": "حشرات" },
+    { "context": "خنفساء", "hint": "", "category": "حشرات" },
+    { "context": "دبور", "hint": "", "category": "حشرات" },
+    { "context": "عقرب", "hint": "", "category": "حشرات" },
+    { "context": "يعسوب", "hint": "", "category": "حشرات" },
+    { "context": "دودة القز", "hint": "", "category": "حشرات" },
+    { "context": "دودة الأرض", "hint": "", "category": "حشرات" },
+    { "context": "يراعة", "hint": "", "category": "حشرات" },
+    { "context": "سوسة النخيل", "hint": "", "category": "حشرات" },
+    { "context": "دعسوقة", "hint": "", "category": "حشرات" },
+    { "context": "عثة", "hint": "", "category": "حشرات" },
+    { "context": "أم أربعة وأربعين", "hint": "", "category": "حشرات" }
+];
+
+const randoms = [...animals, ...schoolSubjects, ...clothes, ...places, ...drinks, ...foods, ...fruitsAndVegetables, ...inventions, ...insects];
 
 function exitRoundAlert(){
 Swal.fire({
@@ -695,6 +753,15 @@ confirmButton: 'confirm-btn'
     case 'schoolSubjects':
         contextData = schoolSubjects;
         break;
+    case 'inventions':
+        contextData = inventions;
+        break;
+    case 'insects':
+        contextData = insects;
+        break;
+    case 'randoms':
+        contextData = randoms;
+        break;
     default:
         Swal.fire({
             title: 'خطأ!',
@@ -759,7 +826,9 @@ confirmButton: 'confirm-btn'
                         <div class="playerCard">
 <i class="fas fa-user-astronaut"></i>
 <h1>${player} أنت اللعاب!</h1>
-                        <p>والسالفة عن: <b>${selectedContextItem.context}</b>.</p>
+<p>
+${selectedContext === "randoms" ? `والسالفة عن: <b>${selectedContextItem.context}</b> (الفئة: ${selectedContextItem.category}).` : `والسالفة عن: <b>${selectedContextItem.context}</b>.`}
+</p>
 <p>لا نوصيك العب عليهم صح، يعني سو نفسك برا السالفة، وتذكر أن أي صوت يجي عليك بتأخذ ٥٠ نقطة!</p>
 </div>
                         <br>
@@ -786,7 +855,9 @@ confirmButton: 'confirm-btn'
 <div class="playerCard">
 <i class="fas fa-user-tie"></i>
                         <h2>${player} أنت داخل في السالفة!</h2>
-                        <p>والسالفة عن: <b>${selectedContextItem.context}</b>.</p>
+<p>
+${selectedContext === "randoms" ? `والسالفة عن: <b>${selectedContextItem.context}</b> (الفئة: ${selectedContextItem.category}).` : `والسالفة عن: <b>${selectedContextItem.context}</b>.`}
+</p>
 <p>اسأل البقية أسئلة ذكية بحيث أنك تصيد اللي برا السالفة وفي نفس الوقت ما تخليه يدري وش السالفة، وتذكر أنك لما تصيد اللي برا السالفة وتصوت عليه بتأخذ ١٠٠ نقطة.</p></div>
                         <br>
                         <button id="nextPlayerBtn">التالي</button>
@@ -998,18 +1069,35 @@ randomNameElement.style.animation = "textAn 3s infinite linear";
         }
 
 function showGuessPage() {
-    // Generate 6 random wrong answers and 1 correct answer
-    const wrongAnswers = shuffleArray(contextData.filter(item => item !== selectedContextItem)).slice(0, 6);
-    const correctAnswer = selectedContextItem.context;
+// Function to shuffle an array using the Fisher-Yates algorithm
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
 
-    // Generate all answers (wrong answers)
-    const allAnswers = wrongAnswers.map(item => item.context);
+// Assuming contextData is an array of all possible context items
+// and selectedContextItem is the correct context item
 
-    // Generate a random index between 0 and 6
-    const randomIndex = Math.floor(Math.random() * 7);
+// Shuffle the contextData array to ensure randomness
+const shuffledContextData = shuffleArray(contextData);
 
-    // Insert the correct answer at the random index
-    allAnswers.splice(randomIndex, 0, correctAnswer);
+// Filter out the selectedContextItem and select the first 6 items as wrong answers
+const wrongAnswers = shuffledContextData.filter(item => item !== selectedContextItem).slice(0, 6);
+
+// Correct answer
+const correctAnswer = selectedContextItem.context;
+
+// Generate all answers (wrong answers)
+const allAnswers = wrongAnswers.map(item => item.context);
+
+// Generate a random index between 0 and 6
+const randomIndex = Math.floor(Math.random() * 7);
+
+// Insert the correct answer at the random index
+allAnswers.splice(randomIndex, 0, correctAnswer);
 
     // Update the UI for the guess page
     document.body.innerHTML = `
