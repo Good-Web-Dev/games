@@ -614,11 +614,23 @@ const selectJesterPlayer = (players) => {
 
 // Original code
 document.getElementById("addUser").addEventListener("click", function () {
-    let newPlayerName = document.getElementById('playerInput').value;
-    if (newPlayerName) {
+    let newPlayerName = document.getElementById('playerInput').value.trim(); // Trim the input value
+    let players = JSON.parse(localStorage.getItem('players')) || [];
+
+    if (newPlayerName && !players.includes(newPlayerName)) {
         addPlayerLabel(newPlayerName);
         savePlayerToLocal(newPlayerName);
         document.getElementById('playerInput').value = ''; // Clear input
+    } else if (players.includes(newPlayerName)) {
+        Swal.fire({
+            title: 'تنبيه!',
+            text: 'الاسم هذا مأخوذ من لاعب ثاني حاول تغيره!',
+            icon: 'warning',
+            confirmButtonText: 'حسنٌ',
+            customClass: {
+                confirmButton: 'confirm-btn'
+            }
+        });
     }
 });
 
@@ -1007,19 +1019,23 @@ function showGuessPage() {
 <button class="exitRound" onclick="exitRoundAlert()">خروج</button>
     `;
 
-    // Add event listeners to the guess buttons
-    document.querySelectorAll(".guessBtn").forEach(button => {
-        button.addEventListener("click", function () {
-            const guessedAnswer = button.getAttribute("data-answer");
-
-            // Check if the guessed answer is correct
-            if (guessedAnswer === correctAnswer) {
-this.classList.add("guessedAnswerC");
-                scores[outOfContextPlayer] += 100; // Add 100 points for correct guess
-            } else{
-this.classList.add("guessedAnswerW");
-}
-
+   // Add event listeners to the guess buttons
+document.querySelectorAll(".guessBtn").forEach(button => {
+    button.addEventListener("click", function () {
+        const guessedAnswer = button.getAttribute("data-answer");
+        // Check if the guessed answer is correct
+        if (guessedAnswer === correctAnswer) {
+            this.classList.add("guessedAnswerC");
+            scores[outOfContextPlayer] += 100; // Add 100 points for correct guess
+        } else {
+            this.classList.add("guessedAnswerW");
+            // Find the correct answer button and add the correct class
+            document.querySelectorAll(".guessBtn").forEach(otherButton => {
+                if (otherButton.getAttribute("data-answer") === correctAnswer) {
+                    otherButton.classList.add("guessedAnswerC");
+                }
+            });
+        }
             // Show the score page
             setTimeout(showScorePage, 800);
         });
