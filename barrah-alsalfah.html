@@ -829,7 +829,7 @@ confirmButton: 'confirm-btn'
 <p>
 ${selectedContext === "randoms" ? `والسالفة عن: <b>${selectedContextItem.context}</b> (الفئة: ${selectedContextItem.category}).` : `والسالفة عن: <b>${selectedContextItem.context}</b>.`}
 </p>
-<p>لا نوصيك العب عليهم صح، يعني سو نفسك برا السالفة، وتذكر أن أي صوت يجي عليك بتأخذ ٥٠ نقطة!</p>
+<p>لا نوصيك العب عليهم صح، يعني سو نفسك برا السالفة، وتذكر أن أي صوت يجي عليك بتأخذ ٥٠ نقطة! ولما تصيد اللي برا السالفة وتصوت عليه صح تجيك ١٠٠ نقطة!</p>
 </div>
                         <br>
                         <button id="nextPlayerBtn">التالي</button>
@@ -841,6 +841,7 @@ ${selectedContext === "randoms" ? `والسالفة عن: <b>${selectedContextIt
 <div class="playerCard">
 <i class="fas fa-user-secret"></i>
                         <h2>${player} أنت برا السالفة!</h2>
+${selectedContext === "randoms" ? `<p>تلميح فئة السالفة عن: <b>${selectedContextItem.category}</b>.</p>` : ``}
 <p>حاول تعرف السالفة من أسئلة البقية! ولا تنسَ أي تصويت ما يجي عليك بتأخذ عليه ٥٠ نقطة! ولو
  عرفت السالفة وتوقعتعا صح بتأخذ ١٠٠ نقطة!</p>
                         <!-- <p>تلميح السالفة عن: <b>${selectedContextItem.hint}</b>.</p> -->
@@ -983,7 +984,7 @@ function showQuestionPrompt(asker, answerer) {
 
                 // Update the UI for the current voter
                 document.body.innerHTML = `
-                    <h1 style="margin-bottom:-4px;">${currentVoter} من تتوقع أنه برا السالفة؟</h1>
+                    <h1 style="margin-bottom:-3px;">${currentVoter} من تتوقع أنه برا السالفة؟</h1>
                     <br>
                     <div class="gridBtns">${shuffledPlayers.map(player => `<button class="voteBtn" data-player="${player}">${player}</button>`).join('')}</div>
 <button class="exitRound" onclick="exitRoundAlert()">خروج</button>
@@ -1082,6 +1083,50 @@ function shuffleArray(array) {
 // and selectedContextItem is the correct context item
 
 // Shuffle the contextData array to ensure randomness
+switch (selectedContextItem.category) {
+    case 'حيوانات':
+        contextData = animals;
+        break;
+    case 'ملابس':
+        contextData = clothes;
+        break;
+    case 'أماكن':
+        contextData = places;
+        break;
+    case 'مشروبات':
+        contextData = drinks;
+        break;
+    case 'فواكه وخضار':
+        contextData = fruitsAndVegetables;
+        break;
+    case 'أكلات':
+        contextData = foods;
+        break;
+    case 'علماء':
+        contextData = scientists;
+        break;
+    case 'مواد دراسية':
+        contextData = schoolSubjects;
+        break;
+    case 'اختراعات':
+        contextData = inventions;
+        break;
+    case 'حشرات':
+        contextData = insects;
+        break;
+    default:
+        Swal.fire({
+            title: 'خطأ!',
+            text: 'تعذر تحميل التوقعات!',
+            icon: 'error',
+            confirmButtonText: 'حسنٌ',
+            customClass: {
+                confirmButton: 'confirm-btn'
+            }
+        });
+        return;
+}
+
 const shuffledContextData = shuffleArray(contextData);
 
 // Filter out the selectedContextItem and select the first 6 items as wrong answers
@@ -1101,7 +1146,7 @@ allAnswers.splice(randomIndex, 0, correctAnswer);
 
     // Update the UI for the guess page
     document.body.innerHTML = `
-        <h1 style="margin-bottom:-7px;">${outOfContextPlayer} وش تتوقع كانت السالفة؟</h1>
+        <h1 style="margin-bottom:-3px;">${outOfContextPlayer} وش تتوقع كانت السالفة؟</h1>
         <br>
         <div class="gridBtns">${allAnswers.map(answer => `<button class="guessBtn" data-answer="${answer}">${answer}</button>`).join('')}</div>
 <button class="exitRound" onclick="exitRoundAlert()">خروج</button>
